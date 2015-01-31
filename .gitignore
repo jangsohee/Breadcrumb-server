@@ -26,3 +26,15 @@ node_modules
 
 # Users Environment Variables
 .lock-wscript
+
+# Webstorm IDE: 프로젝트 관리를 위한 디렉토리
+.idea
+
+# bower 모듈
+client/bower_components
+
+# SASS 캐시
+.sass-cache
+
+# 임시 파일
+.tmp
