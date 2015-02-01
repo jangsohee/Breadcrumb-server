@@ -29,7 +29,7 @@ module.exports = function (grunt) {
             dev: {
                 options: {
                     script: 'server/app.js',
-                    debug: true
+                    debug: 5890
                 }
             },
             prod: {
@@ -252,18 +252,18 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('serve', function (target) {
-         grunt.task.run([
-             'clean:server',
-             'env:all',
-             'injector:sass',
-             'concurrent:server',
-             'injector',
-             'bowerInstall',
-             'autoprefixer',
-             'express:dev',
-             'wait',
-             'open',
-             'watch'
+        grunt.task.run([
+            'clean:server',
+            'env:all',
+            'injector:sass',
+            'concurrent:server',
+            'injector',
+            'bowerInstall',
+            'autoprefixer',
+            'express:dev',
+            'wait',
+            'open',
+            'watch'
         ]);
     });
 };

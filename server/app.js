@@ -21,6 +21,9 @@ if (config.seedDB) require('./config/seed');
 var app = express(),
     server = require('http').createServer(app);
 
+// 서버 기본 설정
+require('./config/auth.token')();		// Set authentication token
+
 // 익스프레스 설정 및 라우트
 require('./config/express')(app);
 require('./routes')(app);
