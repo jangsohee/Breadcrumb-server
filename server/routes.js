@@ -11,6 +11,11 @@ var protocol = require('./components/protocol'),
  * @param app
  */
 module.exports = function (app) {
+    // 인증
+    app.use('/auth', require('./auth'));
+
+    // API
+    app.use('/api/users', require('./api/user'));
 
     // 에러 발생시 공통 리턴
     app.use('/:url(api|auth)', not_found, error, json);
