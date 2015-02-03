@@ -11,8 +11,8 @@ var CommonError = require('../../../error'),
  * @constructor
  */
 function CastError (type, value, path) {
-    var code = CODE.COMMON.CAST_ERROR;
-    code.message = 'Cast to ' + type + ' failed for value \'' + require('util').inspect(value, false, null) + '\' at path \'' + path + '\'';
+    var code = CODE.COMMON.CASTING;
+    code.message = 'Cast to ' + type + ' failed for value \'' + JSON.stringify(value) + '\' at path \'' + path + '\'';
     CommonError.call(this, code);
     Error.captureStackTrace(this, arguments.callee);
     this.name = 'CastError';

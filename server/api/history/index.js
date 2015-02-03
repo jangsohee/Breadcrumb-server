@@ -1,15 +1,13 @@
 'use strict';
 
 var express = require('express'),
-    controller = require('./user.controller'),
+    controller = require('./history.controller'),
     auth = require('../../auth/auth.service'),
     json = require('../../components/protocol/json');
 
 var router = express.Router();
 
-// 회원 가입
-router.post('/', controller.create, json);
-// 회원 탈퇴
-router.delete('/', auth.isAuthenticated(), controller.remove, json);
+// 히스토리 생성
+router.post('/', auth.hasApplication(), controller.create, json);
 
 module.exports = router;

@@ -2,6 +2,6 @@
 
 var Schema = require('mongoose').Schema;
 
-Schema.ObjectId = require('./schema/objectid');
+Schema.Types = require('./schema/index');
 
 module.exports = Schema;

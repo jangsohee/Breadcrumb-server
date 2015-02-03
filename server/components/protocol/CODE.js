@@ -39,7 +39,7 @@ CODE.COMMON = {
         status: 404,
         message: '알 수 없는 오류가 발생했습니다.'
     },
-    CAST_ERROR: {
+    CASTING: {
         code: 5,
         status: 422,
         message: '잘못된 타입의 데이터가 전달되었습니다.'
@@ -48,6 +48,11 @@ CODE.COMMON = {
         code: 11,
         status: 422,
         message: '필수 데이터가 누락되었습니다.'
+    },
+    REQUIRED_CALLBACK: {
+        code: 21,
+        status: 500,
+        message: 'Missing callback function arguments.'
     }
 };
 
@@ -76,6 +81,11 @@ CODE.AUTH = {
         code: 10105,
         status: 403,
         message: '접근 권한이 없습니다.'
+    },
+    APPLICATION_HEADER: {
+        code: 10111,
+        status: 403,
+        message: '어플리케이션 헤더가 정보가 존재하지 않습니다.'
     },
     MISSING_SECRET: {
         code: 20101,
@@ -149,5 +159,54 @@ CODE.USER = {
         code: 20203,
         status: 500,
         message: 'Set `role` before check authentication.'
+    }
+};
+
+CODE.APPLICATION = {
+    REQUIRED_REGISTERED: {
+        code: 20301,
+        status: 500,
+        message: 'Set `registered` before save `Application` document.'
+    }
+};
+
+CODE.HISTORY = {
+    NOT_FOUND: {
+        code: 10401,
+        status: 404,
+        message: '해당 히스토리를 찾을 수 없습니다.'
+    },
+    MISSING_TITLE: {
+        code: 10411,
+        status: 422,
+        message: '타이틀이 누락되었습니다.'
+    },
+    MISSING_BODY: {
+        code: 10412,
+        status: 422,
+        message: '본문이 누락되었습니다.'
+    },
+    MISSING_A_TAG: {
+        code: 10413,
+        status: 422,
+        message: '에이 태그가 누락되었습니다.'
+    },
+    MISSING_META_KEYWORDS: {
+        code: 10414,
+        status: 422,
+        message: '메타 키워드 목록이 누락되었습니다.'
+    },
+    REQUIRED_REGISTERED: {
+        code: 20401,
+        status: 500,
+        message: 'Set `registered` before save `Application` document.'
+    }
+};
+
+CODE.KEYWORD = {
+    REQUIRED_REGISTERED: {
+        code: 20501,
+        status: 500,
+        message: 'Set `registered` before save `Application` document.'
     }
 };

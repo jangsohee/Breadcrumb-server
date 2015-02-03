@@ -3,7 +3,6 @@
 var crypto = require('crypto'),
     mongoose = require('../../components/mongoose'),
     Schema = mongoose.Schema,
-    ObjectId = Schema.Types.ObjectId,
     ValidatorError = mongoose.Error.ValidatorError,
     CODE = require('../../components/protocol/CODE');
 
