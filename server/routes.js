@@ -15,7 +15,12 @@ module.exports = function (app) {
     app.use('/auth', require('./auth'));
 
     // API
+    // 유저
     app.use('/api/users', require('./api/user'));
+    // 어플리케이션
+    app.use('/api/apps', require('./api/application'));
+    // 히스토리
+    app.use('/api/histories', require('./api/history'));
 
     // 에러 발생시 공통 리턴
     app.use('/:url(api|auth)', not_found, error, json);

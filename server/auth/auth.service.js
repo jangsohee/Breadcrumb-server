@@ -5,7 +5,7 @@ var compose = require('composable-middleware'),
     token = require('../config/auth.token'),
     jwt = require('jsonwebtoken'),
     expressJwt = require('../components/express-jwt'),
-    validateJwt = expressJwt({ secret: token.cert }),
+    validateJwt = expressJwt({secret: token.cert}),
     config = require('../config/environment'),
     userRoles = config.userRoles,
     User = require('../api/user/user.model'),
@@ -25,12 +25,30 @@ function makeToken(user) {
     return jwt.sign(user.token, token.key, options);
 }
 
+// 어플리케이션 헤더 정보 획득
+function getCurrentApp(req, res, next) {
+    if (req.headers['current-application']) req.currentApplication = req.headers['current-application'];
+    next();
+}
+
+// 어플리케이션 헤더 정보 체크
+function hasApplication() {
+    return compose()
+        .use(getCurrentApp)
+        .use(function (req, res, next) {
+            if (!req.currentApplication) return next(CODE.AUTH.APPLICATION_HEADER);
+            next();
+        });
+}
+
 /**
  * Attaches the user object to the request if authenticated
  * @returns {app}
  */
 function isAuthenticated() {
     return compose()
+        // 현재 어플리케이션 아이디 체크
+        .use(getCurrentApp)
         // Validate jwt
         .use(function (req, res, next) {
             validateJwt(req, res, function (err) {
@@ -68,5 +86,7 @@ function hasRole(roleRequired) {
 }
 
 module.exports.makeToken = makeToken;
+module.exports.getCurrentApp = getCurrentApp;
+module.exports.hasApplication = hasApplication;
 module.exports.isAuthenticated = isAuthenticated;
 module.exports.hasRole = hasRole;
