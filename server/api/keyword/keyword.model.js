@@ -6,14 +6,17 @@ var mongoose = require('../../components/mongoose'),
     CODE = require('../../components/protocol/CODE');
 
 var KeywordSchema = new Schema({
-    history: {
+    application: {
         type: ObjectId,
-        ref: 'History'
+        ref: 'Application'
     },
-    name: String,
+    noun: {
+        type: String,
+        required: CODE.KEYWORD.REQUIRED_NOUN
+    },
     count: {
         type: Number,
-        default: 0
+        default: 1
     },
     registered: {
         type: Date,
@@ -22,5 +25,7 @@ var KeywordSchema = new Schema({
     deleted: Date
 });
 
+KeywordSchema.index({application: 1, history: 1});
+KeywordSchema.index({noun: 1});
 
 module.exports = mongoose.model('Keyword', KeywordSchema);

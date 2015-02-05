@@ -9,16 +9,22 @@ var _ = require('lodash'),
 var HistorySchema = new Schema({
     title: String,
     body: String,
-    aTag: String,
-    metaKeywords: [String],
-    parentKeyword: {
+    link: String,
+    url: String,
+    keyword: {
         type: ObjectId,
         ref: 'Keyword'
     },
-    majorKeyword: {
+    parent: {
         type: ObjectId,
-        ref: 'Keyword'
+        ref: 'History'
     },
+    children: [
+        {
+            type: ObjectId,
+            ref: 'History'
+        }
+    ],
     registered: {
         type: Date,
         required: CODE.HISTORY.REQUIRED_REGISTERED
@@ -42,18 +48,12 @@ HistorySchema
     .validate(function (body) {
         return _.isString(body) && body.length;
     }, CODE.HISTORY.MISSING_BODY);
-// 에이 태그의 길이 검사
+// URL의 길이 검사
 HistorySchema
-    .path('aTag')
-    .validate(function (aTag) {
-        return _.isString(aTag) && aTag.length;
-    }, CODE.HISTORY.MISSING_A_TAG);
-// 메타 키워드의 길이 검사
-HistorySchema
-    .path('metaKeywords')
-    .validate(function (metaKeywords) {
-        return _.isArray(metaKeywords) && metaKeywords.length;
-    }, CODE.HISTORY.MISSING_META_KEYWORDS);
+    .path('url')
+    .validate(function (url) {
+        return _.isString(url) && url.length;
+    }, CODE.HISTORY.MISSING_URL);
 
 
 module.exports = mongoose.model('History', HistorySchema);

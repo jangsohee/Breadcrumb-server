@@ -3,6 +3,8 @@
 var _ = require('lodash'),
     async = require('async'),
     Application = require('./application.model'),
+    appPop = require('./application.populate'),
+    historyService = require('../history/history.service'),
     CODE = require('../../components/protocol/CODE'),
     CommonError = require('../../components/error');
 
@@ -40,3 +42,19 @@ function _createApp(callback) {
     })
         .save(callback);
 }
+
+// 어플 데이터 호출
+module.exports.get = function (req, res, next) {
+    Application
+        .findById(req.currentApplication)
+        .populate([appPop.roots])
+        .exec(function (err, app) {
+            if (err) return next(err);
+            historyService.walk(app.rootHistories, function (err, histories) {
+                if (err) return next(err);
+                app.rootHistories = histories;
+                res._data = app;
+                next();
+            });
+        });
+};

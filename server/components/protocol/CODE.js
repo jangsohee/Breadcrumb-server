@@ -186,15 +186,10 @@ CODE.HISTORY = {
         status: 422,
         message: '본문이 누락되었습니다.'
     },
-    MISSING_A_TAG: {
+    MISSING_URL: {
         code: 10413,
         status: 422,
-        message: '에이 태그가 누락되었습니다.'
-    },
-    MISSING_META_KEYWORDS: {
-        code: 10414,
-        status: 422,
-        message: '메타 키워드 목록이 누락되었습니다.'
+        message: 'URL이 누락되었습니다.'
     },
     REQUIRED_REGISTERED: {
         code: 20401,
@@ -204,8 +199,18 @@ CODE.HISTORY = {
 };
 
 CODE.KEYWORD = {
-    REQUIRED_REGISTERED: {
+    REQUIRED_APPLICATION: {
         code: 20501,
+        status: 500,
+        message: 'Set `application` before save `Application` document.'
+    },
+    REQUIRED_NOUN: {
+        code: 20502,
+        status: 500,
+        message: 'Set `noun` before save `Application` document.'
+    },
+    REQUIRED_REGISTERED: {
+        code: 20503,
         status: 500,
         message: 'Set `registered` before save `Application` document.'
     }

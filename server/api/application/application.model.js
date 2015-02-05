@@ -6,7 +6,7 @@ var mongoose = require('../../components/mongoose'),
     CODE = require('../../components/protocol/CODE');
 
 var ApplicationSchema = new Schema({
-    histories: [
+    rootHistories: [
         {
             type: ObjectId,
             ref: 'History'
