@@ -8,11 +8,16 @@ var mongoose = require('../../components/mongoose'),
 var KeywordSchema = new Schema({
     application: {
         type: ObjectId,
-        ref: 'Application'
+        ref: 'Application',
+        required: CODE.KEYWORD.REQUIRED_APPLICATION
     },
     noun: {
         type: String,
         required: CODE.KEYWORD.REQUIRED_NOUN
+    },
+    nounType: {
+        type: String,
+        required: CODE.KEYWORD.REQUIRED_NOUN_TYPE
     },
     count: {
         type: Number,
@@ -21,8 +26,7 @@ var KeywordSchema = new Schema({
     registered: {
         type: Date,
         required: CODE.KEYWORD.REQUIRED_REGISTERED
-    },
-    deleted: Date
+    }
 });
 
 KeywordSchema.index({application: 1, history: 1});
