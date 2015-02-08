@@ -20,35 +20,18 @@ var compose = require('composable-middleware'),
  */
 function makeToken(user) {
     var options = {
-        algorithm: 'RS256'
+        //expiresInMinutes: 30,   // 만료 기한 30분
+        algorithm: 'RS256'      // 암호화 알고리즘
     };
     return jwt.sign(user.token, token.key, options);
 }
 
-// 어플리케이션 헤더 정보 획득
-function getCurrentApp(req, res, next) {
-    if (req.headers['current-application']) req.currentApplication = req.headers['current-application'];
-    next();
-}
-
-// 어플리케이션 헤더 정보 체크
-function hasApplication() {
-    return compose()
-        .use(getCurrentApp)
-        .use(function (req, res, next) {
-            if (!req.currentApplication) return next(CODE.AUTH.APPLICATION_HEADER);
-            next();
-        });
-}
-
 /**
  * Attaches the user object to the request if authenticated
- * @returns {app}
+ * @returns {Authenticator}
  */
 function isAuthenticated() {
     return compose()
-        // 현재 어플리케이션 아이디 체크
-        .use(getCurrentApp)
         // Validate jwt
         .use(function (req, res, next) {
             validateJwt(req, res, function (err) {
@@ -58,10 +41,10 @@ function isAuthenticated() {
         })
         // Attach user to request
         .use(function (req, res, next) {
-            User.findById(req.user._id, function (err, user) {
+            User.findById(req.auth._id, function (err, user) {
                 if (err) return next(err);
                 if (!user || user.deleted) return next(CODE.AUTH.INVALID_TOKEN);
-                req.auth = req.user = user;
+                req.user = user;
                 next();
             });
         });
@@ -86,7 +69,5 @@ function hasRole(roleRequired) {
 }
 
 module.exports.makeToken = makeToken;
-module.exports.getCurrentApp = getCurrentApp;
-module.exports.hasApplication = hasApplication;
 module.exports.isAuthenticated = isAuthenticated;
 module.exports.hasRole = hasRole;

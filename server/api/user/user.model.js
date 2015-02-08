@@ -3,6 +3,7 @@
 var crypto = require('crypto'),
     mongoose = require('../../components/mongoose'),
     Schema = mongoose.Schema,
+    ObjectId = Schema.Types.ObjectId,
     ValidatorError = mongoose.Error.ValidatorError,
     CODE = require('../../components/protocol/CODE');
 
@@ -18,6 +19,11 @@ var UserSchema = new Schema({
     },
     hashedPassword: String,
     salt: String,
+    application: {
+        type: ObjectId,
+        ref: 'Application',
+        required: CODE.USER.REQUIRED_APPLICATION
+    },
     registered: {
         type: Date,
         required: CODE.USER.REQUIRED_REGISTERED
@@ -45,7 +51,8 @@ UserSchema
     .get(function () {
         return {
             '_id': this._id,
-            'role': this.role
+            'role': this.role,
+            'application': this.application
         };
     });
 
@@ -86,8 +93,8 @@ UserSchema
 // Validate password is longer than standard
 UserSchema
     .path('hashedPassword')
-    .validate(function (password, respond) {
-        if (password.length < 3) return respond(false);
+    .validate(function (hashedPassword, respond) {
+        if (this.password.length < 4) return respond(false);
         else respond(true);
     }, CODE.USER.SHORT_PASSWORD);
 

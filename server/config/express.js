@@ -27,6 +27,7 @@ module.exports = function (app) {
     app.use(bodyParser.json({ limit: '5mb' }));
     app.use(methodOverride());
     app.use(cookieParser());
+
     app.use(passport.initialize());
 
     if ('production' === env) {

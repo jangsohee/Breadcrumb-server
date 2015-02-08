@@ -6,18 +6,12 @@ var mongoose = require('../../components/mongoose'),
     CODE = require('../../components/protocol/CODE');
 
 var ApplicationSchema = new Schema({
-    histories: [
+    rootHistories: [
         {
             type: ObjectId,
             ref: 'History'
         }
-    ],
-    registered: {
-        type: Date,
-        required: CODE.APPLICATION.REQUIRED_REGISTERED
-    },
-    deleted: Date
+    ]
 });
-
 
 module.exports = mongoose.model('Application', ApplicationSchema);

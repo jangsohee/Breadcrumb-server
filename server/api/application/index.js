@@ -7,7 +7,7 @@ var express = require('express'),
 
 var router = express.Router();
 
-// 어플 계정 생성
-router.post('/', auth.getCurrentApp, controller.create, json);
+// 어플리케이션 데이터 호출
+router.get('/', auth.isAuthenticated(), controller.get, json);
 
 module.exports = router;

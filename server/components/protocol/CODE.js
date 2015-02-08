@@ -150,19 +150,29 @@ CODE.USER = {
         status: 500,
         message: 'Set `role` before save `User` document.'
     },
-    REQUIRED_REGISTERED: {
+    REQUIRED_APPLICATION: {
         code: 20202,
+        status: 500,
+        message: 'Set `application` before save `User` document.'
+    },
+    REQUIRED_REGISTERED: {
+        code: 20203,
         status: 500,
         message: 'Set `registered` before save `User` document.'
     },
     SET_ROLE: {
-        code: 20203,
+        code: 20204,
         status: 500,
         message: 'Set `role` before check authentication.'
     }
 };
 
 CODE.APPLICATION = {
+    NOT_FOUND: {
+        code: 10301,
+        status: 404,
+        message: '해당 어플리케이션을 찾을 수 없습니다.'
+    },
     REQUIRED_REGISTERED: {
         code: 20301,
         status: 500,
@@ -176,6 +186,26 @@ CODE.HISTORY = {
         status: 404,
         message: '해당 히스토리를 찾을 수 없습니다.'
     },
+    UPDATED: {
+        code: 10402,
+        status: 403,
+        message: '해당 히스토리의 데이터는 이미 처리되었습니다.'
+    },
+    INVALID_PARENT: {
+        code: 10403,
+        status: 404,
+        message: '유효하지 않은 부모 히스토리 오브젝트 아이디입니다.'
+    },
+    DUPLICATED_CHILDREN: {
+        code: 10404,
+        status: 405,
+        message: '해당 자식 히스토리는 이미 배열에 포함되어 있습니다.'
+    },
+    SHIFT_TO_CHILD: {
+        code: 10404,
+        status: 405,
+        message: '히스토리를 자기 자신의 하부로 옮길 수 없습니다.'
+    },
     MISSING_TITLE: {
         code: 10411,
         status: 422,
@@ -186,15 +216,10 @@ CODE.HISTORY = {
         status: 422,
         message: '본문이 누락되었습니다.'
     },
-    MISSING_A_TAG: {
+    MISSING_URL: {
         code: 10413,
         status: 422,
-        message: '에이 태그가 누락되었습니다.'
-    },
-    MISSING_META_KEYWORDS: {
-        code: 10414,
-        status: 422,
-        message: '메타 키워드 목록이 누락되었습니다.'
+        message: 'URL이 누락되었습니다.'
     },
     REQUIRED_REGISTERED: {
         code: 20401,
@@ -204,8 +229,23 @@ CODE.HISTORY = {
 };
 
 CODE.KEYWORD = {
-    REQUIRED_REGISTERED: {
+    REQUIRED_APPLICATION: {
         code: 20501,
+        status: 500,
+        message: 'Set `application` before save `Application` document.'
+    },
+    REQUIRED_NOUN: {
+        code: 20502,
+        status: 500,
+        message: 'Set `noun` before save `Application` document.'
+    },
+    REQUIRED_NOUN_TYPE: {
+        code: 20503,
+        status: 500,
+        message: 'Set `nounType` before save `Application` document.'
+    },
+    REQUIRED_REGISTERED: {
+        code: 20504,
         status: 500,
         message: 'Set `registered` before save `Application` document.'
     }
