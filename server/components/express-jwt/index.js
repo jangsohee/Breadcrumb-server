@@ -42,7 +42,7 @@ module.exports = function (options) {
         }
         jwt.verify(token, options.secret, options, function (err, decoded) {
             if (err) return next(CODE.AUTH.INVALID_TOKEN);
-            req.user = decoded;
+            req.auth = decoded;
             next();
         });
     };

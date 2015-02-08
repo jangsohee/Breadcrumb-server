@@ -11,13 +11,7 @@ var ApplicationSchema = new Schema({
             type: ObjectId,
             ref: 'History'
         }
-    ],
-    registered: {
-        type: Date,
-        required: CODE.APPLICATION.REQUIRED_REGISTERED
-    },
-    deleted: Date
+    ]
 });
-
 
 module.exports = mongoose.model('Application', ApplicationSchema);

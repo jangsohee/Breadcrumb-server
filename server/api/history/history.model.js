@@ -1,7 +1,6 @@
 'use strict';
 
-var _ = require('lodash'),
-    mongoose = require('../../components/mongoose'),
+var mongoose = require('../../components/mongoose'),
     Schema = mongoose.Schema,
     ObjectId = Schema.Types.ObjectId,
     CODE = require('../../components/protocol/CODE');

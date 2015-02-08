@@ -77,7 +77,7 @@ module.exports.create = function (req, res, next) {
 module.exports.update = function (req, res, next) {
     // TODO #0: 기본 변수 설정
     if (req.body._id) delete req.body._id;          // _id는 업데이트시 위험 요소이므로, 제거
-    var applicationId = req.currentApplication,     // 헤더에서 뽑은 어플리케이션 아이디
+    var applicationId = req.user.application,       // 유저의 어플리케이션 아이디
         historyId = req.params.id,                  // 파라미터로 받은 해당 히스토리 아이디
         newHistory = req.body,                      // JSON으로 받은 히스토리 데이터
         pass = {                                    // 롤백 처리를 위한 플래그 오브젝트
@@ -192,7 +192,7 @@ module.exports.update = function (req, res, next) {
 module.exports.shift = function (req, res, next) {
     // TODO #0: 기본 변수 설정
     if (req.body._id) delete req.body._id;          // _id는 업데이트시 위험 요소이므로, 제거
-    var applicationId = req.currentApplication,     // 헤더에서 뽑은 어플리케이션 아이디
+    var applicationId = req.user.application,       // 유저의 어플리케이션 아이디
         historyId = req.params.id,                  // 파라미터로 받은 해당 히스토리 아이디
         newHistory = {                              // 폼 데이터를 통해 받은 히스토리 위치 변경 값
             parent: req.body.parent,                // 부모 히스토리 오브젝트 아이디
@@ -400,7 +400,7 @@ module.exports.shift = function (req, res, next) {
 module.exports.remove = function (req, res, next) {
     // TODO #0: 기본 변수 설정
     if (req.body._id) delete req.body._id;          // _id는 업데이트시 위험 요소이므로, 제거
-    var applicationId = req.currentApplication,     // 헤더에서 뽑은 어플리케이션 아이디
+    var applicationId = req.user.application,       // 유저의 어플리케이션 아이디
         historyId = req.params.id;                  // 파라미터로 받은 해당 히스토리 아이디
 
     // TODO: #1: 히스토리 찾기

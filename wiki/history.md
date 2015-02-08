@@ -25,14 +25,14 @@
 }
 ```
 
-## <a name="create"></a>생성
+## <a name="create"></a> 생성
 
 * header
-    * current-application: 해당 어플리케이션 아이디 스트링
+    * Authorization: 유저 Bearer 토큰
 * method: POST
 * path: /api/histories
 
-히스토리 생성을 위해서는 반드시 `current-applicaton`헤더 정보가 존재해야 한다.
+히스토리 생성을 위해서는 반드시 `Authorization`헤더 정보가 존재해야 한다.
 
 ### 리턴 데이터
 
@@ -55,7 +55,7 @@
 ## <a name="update"></a> 등록
 
 * header
-    * current-application: 해당 어플리케이션 아이디 스트링
+    * Authorization: 유저 Bearer 토큰
 * method: PUT
 * path: /api/histories/:id
     * id: 등록하고자 하는 히스토리 오브젝트 아이디
@@ -66,7 +66,7 @@
     * url: 경로 스트링
     * parent: 부모 히스토리 오브젝트 아이디(없을 시 루트 히스토리)
 
-히스토리 등록을 위해서는 반드시 `current-applicaton`헤더 정보가 존재해야 한다.
+히스토리 등록을 위해서는 반드시 `Authorization`헤더 정보가 존재해야 한다.
 `title`, `body`, `url` 전송은 필수이며 `link`는 선택이다.
 또한 부모-자식 관계가 필요한 경우, `parent` 데이터를 함께 전송한다.
 
@@ -146,16 +146,6 @@
 }
 ```
 
-`parent` 데이터를 전송하지 않았으며, `current-application` 값이 잘못된 경우,
-
-```
-{
-    "code": 10301,
-    "status": 404,
-    "message": "해당 어플리케이션을 찾을 수 없습니다."
-}
-```
-
 `parent` 데이터가 유효하지 않은 경우,
 
 ```
@@ -169,12 +159,12 @@
 ## <a name="get"></a> 호출
 
 * header
-    * current-application: 해당 어플리케이션 아이디 스트링
+    * Authorization: 유저 Bearer 토큰
 * method: GET
 * path: /api/histories/:id
     * id: 호출 하는 히스토리 오브젝트 아이디
 
-히스토리 호출을 위해서는 반드시 `current-applicaton`헤더 정보가 존재해야 한다.
+히스토리 호출을 위해서는 반드시 `Authorization`헤더 정보가 존재해야 한다.
 해당 히스토리 데이터 및 하위 히스토리(`children`) 트리구조를 리턴한다.
  - 현재 키워드 파트를 바인딩 하지 않아, 키워드(`keyword`)는 출력되지 않는다.
 
@@ -240,7 +230,7 @@
 ## <a name="shift"></a> 위치 변경
 
 * header
-    * current-application: 해당 어플리케이션 아이디 스트링
+    * Authorization: 유저 Bearer 토큰
 * method: PUT
 * path: /api/histories/:id/shift
     * id: 위치를 변경할 히스토리 오브젝트 아이디
@@ -248,7 +238,7 @@
     * parent: 변경될 위치의 부모 히스토리 오브젝트 아이디(없을 시 루트 히스토리에 등록된다.)
     * index: 변경될 위치 인덱스 값(없을시 첫번째 위치에 등록된다.)
 
-히스토리 위치 변경을 위해서는 반드시 `current-applicaton`헤더 정보가 존재해야 한다.
+히스토리 위치 변경을 위해서는 반드시 `Authorization`헤더 정보가 존재해야 한다.
 
 ### 리턴 데이터
 
@@ -304,25 +294,15 @@
 }
 ```
 
-`parent` 데이터를 전송하지 않았으며, `current-application` 값이 잘못된 경우,
-
-```
-{
-    "code": 10301,
-    "status": 404,
-    "message": "해당 어플리케이션을 찾을 수 없습니다."
-}
-```
-
 ## <a name="remove"></a> 삭제
 
 * header
-    * current-application: 해당 어플리케이션 아이디 스트링
+    * Authorization: 유저 Bearer 토큰
 * method: DELETE
 * path: /api/histories/:id
     * id: 삭할 히스토리 오브젝트 아이디
 
-히스토리 삭제를 위해서는 반드시 `current-applicaton`헤더 정보가 존재해야 한다.
+히스토리 삭제를 위해서는 반드시 `Authorization`헤더 정보가 존재해야 한다.
 해당 히스토리 하부의 모든 도큐먼트는 삭제된다.
 
 ### 리턴 데이터
@@ -346,15 +326,5 @@
     "code": 10401,
     "status": 404,
     "message": "해당 히스토리를 찾을 수 없습니다."
-}
-```
-
-`current-application` 값이 잘못된 경우,
-
-```
-{
-    "code": 10301,
-    "status": 404,
-    "message": "해당 어플리케이션을 찾을 수 없습니다."
 }
 ```

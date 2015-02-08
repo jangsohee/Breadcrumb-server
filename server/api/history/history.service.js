@@ -22,7 +22,7 @@ function walk(histories, callback) {
         _.forEach(histories, function (history, i) {
             // 히스토리 검색
             History
-                .findById(history, historyPop.select)
+                .findById(history._id, historyPop.select)
                 // keyword, children 도큐먼트 데이터 포함
                 .populate([/*historyPop.keyword,*/ historyPop.children])
                 .exec(function (err, populatedHistory) {

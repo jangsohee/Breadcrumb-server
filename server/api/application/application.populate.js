@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-    select: '_id rootHistories registered',
+    select: '_id rootHistories',
     roots: {
         path: 'rootHistories',
         select: '_id title url keyword parent children registered',

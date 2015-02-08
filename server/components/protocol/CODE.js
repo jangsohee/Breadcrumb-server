@@ -150,13 +150,18 @@ CODE.USER = {
         status: 500,
         message: 'Set `role` before save `User` document.'
     },
-    REQUIRED_REGISTERED: {
+    REQUIRED_APPLICATION: {
         code: 20202,
+        status: 500,
+        message: 'Set `application` before save `User` document.'
+    },
+    REQUIRED_REGISTERED: {
+        code: 20203,
         status: 500,
         message: 'Set `registered` before save `User` document.'
     },
     SET_ROLE: {
-        code: 20203,
+        code: 20204,
         status: 500,
         message: 'Set `role` before check authentication.'
     }
