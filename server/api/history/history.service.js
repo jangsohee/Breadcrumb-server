@@ -23,8 +23,8 @@ function walk(histories, callback) {
             // 히스토리 검색
             History
                 .findById(history._id, historyPop.select)
-                // keyword, children 도큐먼트 데이터 포함
-                .populate([/*historyPop.keyword,*/ historyPop.children])
+                // children 도큐먼트 데이터 포함
+                .populate([historyPop.children])
                 .exec(function (err, populatedHistory) {
                     // 에러 처리
                     if (err) return callback(err);

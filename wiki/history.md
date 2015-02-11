@@ -17,7 +17,7 @@
     body: 본문 스트링,
     link: 링크 스트링(선택),
     url: 경로 스트링,
-    keyword: {키워드 오브젝트},
+    keyword: 키워드 스트링,
     parent: {부모 히스토리 오브젝트},
     children: [자식 히스토리 오브젝트 목록]
     registered: 생성일시,
@@ -72,8 +72,7 @@
 
 ### 리턴 데이터
 
-`updated`를 포함한 히스토리 데이터가 출력된다.
- - 현재 키워드 파트를 바인딩 하지 않아, 키워드(`keyword`)는 출력되지 않는다.
+`updated`를 포함한 히스토리 데이터가 출력된다. 전송된 `body`가 없다면 `keyword`도 없다.
 
 ```
 {
@@ -84,6 +83,7 @@
         "url": "http://haha.com",
         "body": "world",
         "title": "hello",
+        "keyword": "key",
         "parent": "54d5bad1540ba44d07c1f411",
         "updated": "2015-02-07T08:54:35.547Z",
         "_id": "54d5d2039df327390861f197",
@@ -103,16 +103,6 @@
     "code": 10411,
     "status": 422,
     "message": "타이틀이 누락되었습니다."
-}
-```
-
-`body` 데이터 전송 누락시,
-
-```
-{
-    "code": 10412,
-    "status": 422,
-    "message": "본문이 누락되었습니다."
 }
 ```
 
@@ -170,9 +160,9 @@
 
 ### 리턴 데이터
 
-히스토리의 `_id`, `registered`, `title`, `url`, `keyword`(미구현), `parent`(포함시), `children`를 출력한다.
+히스토리의 `_id`, `registered`, `title`, `url`, `keyword`(포함시), `parent`(포함시), `children`를 출력한다.
 `children`의 경우, 하위 트리 구조 모두를 포함한다.
-`children`은 히스토리 오브젝트 이며, `_id`, `registered`, `title`, `url`, `keyword`(미구현), `parent`, `children`을 키로 갖는다.
+`children`은 히스토리 오브젝트 이며, `_id`, `registered`, `title`, `url`, `keyword`(포함시), `parent`, `children`을 키로 갖는다.
 
 ```
 {
@@ -183,12 +173,14 @@
         "_id": "54d3a64de2e3ff04189d20bf",
         "registered": "2015-02-05T17:20:13.873Z",
         "title": "hello2",
+        "keyword": "key",
         "url": "http://naver.com",
         "children": [
             {
                 "_id": "54d5bad1540ba44d07c1f411",
                 "registered": "2015-02-05T17:20:24.170Z",
                 "title": "child",
+                "keyword": "key",
                 "url": "http://naver.com",
                 "parent": "54d3a64de2e3ff04189d20bf",
                 "children": [
@@ -196,6 +188,7 @@
                          "_id": "54d5d2039df327390861f197",
                          "registered": "2015-02-07T08:51:15.153Z",
                          "title": "hello",
+                         "keyword": "key",
                          "url": "http://haha.com",
                          "parent": "54d5bad1540ba44d07c1f411",
                          "children": []
@@ -206,6 +199,7 @@
                 "_id": "54d3a659e2e3ff04189d20c1",
                 "registered": "2015-02-05T17:20:25.697Z",
                 "title": "child2",
+                "keyword": "key",
                 "url": "http://naver.com",
                 "parent": "54d3a64de2e3ff04189d20bf",
                 "children": []

@@ -6,11 +6,11 @@ var mongoose = require('../../components/mongoose'),
     CODE = require('../../components/protocol/CODE');
 
 var KeywordSchema = new Schema({
-    application: {
-        type: ObjectId,
-        ref: 'Application',
-        required: CODE.KEYWORD.REQUIRED_APPLICATION
-    },
+    //application: {
+    //    type: ObjectId,
+    //    ref: 'Application',
+    //    required: CODE.KEYWORD.REQUIRED_APPLICATION
+    //},
     noun: {
         type: String,
         required: CODE.KEYWORD.REQUIRED_NOUN
@@ -22,10 +22,6 @@ var KeywordSchema = new Schema({
     count: {
         type: Number,
         default: 1
-    },
-    registered: {
-        type: Date,
-        required: CODE.KEYWORD.REQUIRED_REGISTERED
     }
 });
 
