@@ -78,8 +78,7 @@ module.exports.create = function (req, res, next) {
 module.exports.update = function (req, res, next) {
     // TODO #0: 기본 변수 설정
     if (req.body._id) delete req.body._id;          // _id는 업데이트시 위험 요소이므로, 제거
-    var userId = req.user._id,                      // 유저 아이디
-        applicationId = req.user.application,       // 유저의 어플리케이션 아이디
+    var applicationId = req.user.application,       // 유저의 어플리케이션 아이디
         historyId = req.params.id,                  // 파라미터로 받은 해당 히스토리 아이디
         newHistory = req.body,                      // JSON으로 받은 히스토리 데이터
         pass = {                                    // 롤백 처리를 위한 플래그 오브젝트
@@ -135,7 +134,7 @@ module.exports.update = function (req, res, next) {
             function (parentKeyword, callback) {
                 // 바디가 있으면 키워드 생성 로직 수행
                 if (newHistory.body) {
-                    keywordService.create(userId, newHistory, parentKeyword, function (err, keyword) {
+                    keywordService.create(newHistory, parentKeyword, function (err, keyword) {
                         if (err) return callback(err);
                         if (keyword) newHistory.keyword = keyword;
                         callback();

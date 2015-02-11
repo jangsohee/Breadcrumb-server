@@ -3,6 +3,7 @@
 var _ = require('lodash'),
     async = require('async'),
     breadcrumbKeyword = require('C:/Users/Sohee/Desktop/addonT/Debug/addonT'),
+    History = require('../history/history.model'),
     Keyword = require('./keyword.model'),
     User = require('../user/user.model'),
     CODE = require('../../components/protocol/CODE'),
@@ -10,7 +11,7 @@ var _ = require('lodash'),
 
 
 // 키워드 생성
-module.exports.create = function (userId, history, parentKeyword, callback) {
+module.exports.create = function (history, parentKeyword, callback) {
     if (!callback) throw new CommonError(CODE.COMMON.REQUIRED_CALLBACK);
     // 키워드 모듈에서 데이터 획득
     var nouns = breadcrumbKeyword.funcTF(history.title, history.body,  history.link, parentKeyword);
@@ -53,7 +54,7 @@ module.exports.create = function (userId, history, parentKeyword, callback) {
         },
         // 유저의 전체 히스토리 갯수 파악
         function (nouns, next) {
-            User.count({_id: userId}, function (err, count) {
+            History.count({}, function (err, count) {
                 if (err) return next(err);
                 nouns.historyTotalNum = count;
                 next(null, nouns);
