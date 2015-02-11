@@ -3,7 +3,7 @@
 var express = require('express'),
     Keyword = require('../keyword.model'),
     TDB = require('C:/Users/Sohee/Desktop/addonT/Debug/addonTDB'),
-    json = require('../../components/protocol/json');
+    json = require('../../../components/protocol/json');
 
 var router = express.Router();
 
