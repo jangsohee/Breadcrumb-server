@@ -21,8 +21,6 @@ module.exports = function (app) {
     app.use('/api/apps', require('./api/application'));
     // 히스토리
     app.use('/api/histories', require('./api/history'));
-    // 키워드 샘플
-    app.use('/sample/keywords', require('./api/keyword/sample'));
 
     // 에러 발생시 공통 리턴
     app.use('/:url(api|auth)', not_found, error, json);
