@@ -69,7 +69,7 @@
 ## <a name="login"></a> 로그인
 
 * method: POST
-* path: /auth/login
+* path: /auth/local
 * data
     * email: 유저 이메일 스트링,
     * password: 유저 비밀번호 스트링

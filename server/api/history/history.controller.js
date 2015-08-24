@@ -4,6 +4,7 @@ var _ = require('lodash'),
     async = require('async'),
     History = require('./history.model'),
     historyService = require('./history.service'),
+    keywordService = require('../keyword/keyword.service'),
     applicationService = require('../application/application.service'),
     historyPop = require('./history.populate'),
     CODE = require('../../components/protocol/CODE');
@@ -86,7 +87,7 @@ module.exports.update = function (req, res, next) {
         };
     // 히스토리 밸리데이션 체크
     if (!newHistory.title) return next(CODE.HISTORY.MISSING_TITLE);
-    if (!newHistory.body) return next(CODE.HISTORY.MISSING_BODY);
+    //if (!newHistory.body) return next(CODE.HISTORY.MISSING_BODY);
     if (!newHistory.url) return next(CODE.HISTORY.MISSING_URL);
     // 히스토리 부모 값 정리
     if (newHistory.parent) newHistory.parent = newHistory.parent._id || newHistory.parent;
@@ -113,7 +114,7 @@ module.exports.update = function (req, res, next) {
                         // 롤백을 위한 변수 값 변경
                         pass.parent = true;
                         // 함수 종료(다음 함수 호출)
-                        callback();
+                        callback(null, parent.keyword);
                     });
                 } else {
                     // 부모가 없을시, 어플 계정에 루트 히스토리 추가
@@ -125,11 +126,22 @@ module.exports.update = function (req, res, next) {
                         // 롤백을 위한 변수 값 변경
                         pass.app = true;
                         // 함수 종료(다음 함수 호출)
-                        callback();
+                        callback(null, null);
                     });
                 }
             },
-            // TODO #3: 히스토리 데이터 변경
+            // TODO #3: keyword 추출
+            function (parentKeyword, callback) {
+                // 바디가 있으면 키워드 생성 로직 수행
+                if (newHistory.body) {
+                    keywordService.create(newHistory, parentKeyword, function (err, keyword) {
+                        if (err) return callback(err);
+                        if (keyword) newHistory.keyword = keyword;
+                        callback();
+                    });
+                } else callback();
+            },
+            // TODO #4: 히스토리 데이터 변경
             function (callback) {
                 // 기존 히스토리에 데이터 입력
                 history.updated = new Date();           // 업데이트 설정
@@ -158,14 +170,18 @@ module.exports.update = function (req, res, next) {
                         callback(null, history);
                     });
             }
-            // TODO #4: 데이터 리턴
+            // TODO #5: 데이터 리턴
         ], function (err, history) {
             // 에러 처리
             if (err) return next(err);
-            // 리턴 데이터 설정
-            res._data = history;
-            // 함수 종료(다음 함수 호출)
-            next();
+            // 데이터 파퓰레이트
+            History.populate(history, [historyPop.children], function (err, history) {
+                if (err) return next(err);
+                // 리턴 데이터 설정
+                res._data = history;
+                // 함수 종료(다음 함수 호출)
+                next();
+            });
         });
     });
 };

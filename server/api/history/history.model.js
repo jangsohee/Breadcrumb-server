@@ -10,10 +10,7 @@ var HistorySchema = new Schema({
     body: String,               // 본문 스트링
     link: String,               // 링크 스트링(선택)
     url: String,                // URL 스트링
-    keyword: {                  // 키워드 오브젝트 아이디
-        type: ObjectId,
-        ref: 'Keyword'
-    },
+    keyword: String,            // 키워드 스트링
     parent: {                   // 부모 히스토리 오브젝트 아이디(존재시)
         type: ObjectId,
         ref: 'History'
